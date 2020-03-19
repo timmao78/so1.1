@@ -96,8 +96,8 @@ if __name__ == "__main__":
                 time_stop = 150000
                 time_near = 91500
 
-                market_open = (webtime >=  time_start and webtime <  time_break) or (webtime >=  time_restart and webtime <=  time_stop)
-                nearly_open = (time_break <= webtime and webtime <  time_restart) or (time_near < webtime < time_start)
+                market_open = (webtime >=  time_start and webtime <=  time_break) or (webtime >=  time_restart and webtime <=  time_stop)
+                nearly_open = (time_break < webtime and webtime <  time_restart) or (time_near < webtime < time_start)
 
                 if market_open:
                     with open(file_txt, 'a') as f:

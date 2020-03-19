@@ -14,6 +14,7 @@ class Ana(cmd.Cmd):
     df = None
     r = 0.025
     csv_file = f"./csv/{datetime.today().strftime('%Y-%m-%d')}.csv"
+    log_file = f"./log/trade.log"
 
     def get_K(self, S):
         if S < 3:
@@ -125,6 +126,86 @@ class Ana(cmd.Cmd):
         print('Run a monitor on option(50/300) markets.')
         print('Usage: run 50/300')
         print()
+
+    def do_pft(self, arg):
+        self.df = pd.read_csv(self.csv_file, index_col='time', parse_dates=['time'])
+        self.df.dropna(inplace=True)
+        pattern_trade = re.compile(r'^(BUY|SELL)\s+(\w+)\s+@\s+([.\d]+)\s+x\s+([\d]+)')
+
+        PROF = {}
+        BUY = {}
+        SELL = {}
+        COMBS = []
+
+        with open(self.log_file, 'r') as rf:
+            for line in rf:
+                if line.split() == []:
+                    COMBS.append((BUY, SELL))
+                    BUY = {}
+                    SELL = {}
+                else:
+                    match_trade = re.search(pattern_trade, line)
+                    op = match_trade.group(1)
+                    code = match_trade.group(2)
+                    price = float(match_trade.group(3))
+                    volume = int(match_trade.group(4))
+                    if op == 'BUY':
+                        BUY.update({code:[price, volume, 'done']})
+                    elif op =='SELL':
+                        SELL.update({code:[price, volume, 'done']})
+            COMBS.append((BUY, SELL))
+
+        for BUY, SELL in COMBS:
+            for code in BUY:
+                if code not in SELL:
+                    if code[6] == 'C':
+                        SELL.update({code: [self.df[code][-1], BUY[code][1], 'to be']})
+                    else:
+                        SELL.update({code: [self.df[code][-1], BUY[code][1], 'to be']})
+
+            for code in SELL:
+                if code not in BUY:
+                    if code[6] == 'C':
+                        BUY.update({code: [self.df[code][-1], SELL[code][1], 'to be']})
+                    else:
+                        BUY.update({code: [self.df[code][-1], SELL[code][1], 'to be']})
+
+        for BUY, SELL in COMBS:
+            print(f'{self.df.index[-1]}', end='')
+            for k in sorted(BUY.keys()):
+                print(f'{k: >19}', end='')
+            print(f'{"TOTAL": >19}', end='')
+            print()
+
+            print(f"{'BUY@':>19}", end='')
+            for k in sorted(BUY.keys()):
+                if BUY[k][2] == 'done':
+                    print(f'{BUY[k][0]: >19}', end='')
+                else:
+                    print(f'{"*"+str(BUY[k][0]): >19}', end='')
+            print()
+
+            print(f"{'SELL@': >19}", end='')
+            for k in sorted(BUY.keys()):
+                if SELL[k][2] == 'done':
+                    print(f'{SELL[k][0]: >19}', end='')
+                else:
+                    print(f'{"*"+str(SELL[k][0]): >19}', end='')
+            print()
+
+            print(f"{'PROFITS':>19}", end='')
+            tt = 0
+            for k in sorted(BUY.keys()):
+                tt += round(SELL[k][0]-BUY[k][0],4)
+                print(f'{round(SELL[k][0] - BUY[k][0],4): >19}', end='')
+
+            print(f'{round(tt,4): >19}')
+            print()
+
+    def help_pft(self):
+        print("Calculate the profits for you, which hopefully are positive. :)")
+        print('')
+        return True
 
     def do_exit(self, arg):
         print("Thank you. Bye.")
