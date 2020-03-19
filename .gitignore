@@ -2,3 +2,6 @@ ipynb/
 txt/
 csv/
 .ipynb_checkpoints/
+__pycache__/
+bsm_option_class.py
+so_func.py

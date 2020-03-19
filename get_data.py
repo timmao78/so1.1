@@ -93,7 +93,7 @@ if __name__ == "__main__":
                 time_start = 93000
                 time_break = 113000
                 time_restart = 130000
-                time_stop = 180000
+                time_stop = 150000
                 time_near = 91500
 
                 market_open = (webtime >=  time_start and webtime <  time_break) or (webtime >=  time_restart and webtime <=  time_stop)
@@ -153,7 +153,7 @@ if __name__ == "__main__":
 # In[9]:
 
 
-df = pd.read_csv(file_csv, index_col='time', parse_dates=['time'])
+# df = pd.read_csv(file_csv, index_col='time', parse_dates=['time'])
 
 
 # In[ ]:
