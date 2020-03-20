@@ -6,3 +6,6 @@ __pycache__/
 bsm_option_class.py
 so_func.py
 log/
+requirements.txt
+venv/
+.gitignore
