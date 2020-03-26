@@ -44,6 +44,9 @@ if __name__ == "__main__":
 
     url_510300_apr = "http://yunhq.sse.com.cn:32041//v1/sho/list/tstyle/510300_04?callback=jQuery112409417454011549969_1582766597079&select=contractid%2Clast%2Cchg_rate%2Cpresetpx%2Cexepx&order=contractid%2Cexepx%2Case&_=1582766597086"
 
+    url_510300_may = "http://yunhq.sse.com.cn:32041//v1/sho/list/tstyle/510300_05?callback=jQuery112405519789488195755_1585184872611&select=contractid%2Clast%2Cchg_rate%2Cpresetpx%2Cexepx&order=contractid%2Cexepx%2Case&_=1585184872612"
+
+
     url_510300_jun = "http://yunhq.sse.com.cn:32041//v1/sho/list/tstyle/510300_06?callback=jQuery112402078220234177265_1577088059336&select=contractid%2Clast%2Cchg_rate%2Cpresetpx%2Cexepx&order=contractid%2Cexepx%2Case&_=1577088059360"
 
     url_510300_sep = "http://yunhq.sse.com.cn:32041//v1/sho/list/tstyle/510300_09?callback=jQuery11240028350739831281335_1579742947846&select=contractid%2Clast%2Cchg_rate%2Cpresetpx%2Cexepx&order=contractid%2Cexepx%2Case&_=1579742947854"
@@ -54,13 +57,15 @@ if __name__ == "__main__":
 
     url_510050_apr = "http://yunhq.sse.com.cn:32041//v1/sho/list/tstyle/510050_04?callback=jQuery112409417454011549969_1582766597079&select=contractid%2Clast%2Cchg_rate%2Cpresetpx%2Cexepx&order=contractid%2Cexepx%2Case&_=1582766597082"
 
+    url_510050_may = "http://yunhq.sse.com.cn:32041//v1/sho/list/tstyle/510050_05?callback=jQuery112405519789488195755_1585184872604&select=contractid%2Clast%2Cchg_rate%2Cpresetpx%2Cexepx&order=contractid%2Cexepx%2Case&_=1585184872607"
+
     url_510050_jun = "http://yunhq.sse.com.cn:32041/v1/sho/list/tstyle/510050_06?callback=jQuery111209494863322515489_1571879875297&select=contractid%2Clast%2Cchg_rate%2Cpresetpx%2Cexepx&_=1571879875304"
 
     url_510050_sep = "http://yunhq.sse.com.cn:32041//v1/sho/list/tstyle/510050_09?callback=jQuery11240028350739831281335_1579742947844&select=contractid%2Clast%2Cchg_rate%2Cpresetpx%2Cexepx&order=contractid%2Cexepx%2Case&_=1579742947849"
 
     url_510050 = "http://yunhq.sse.com.cn:32041/v1/sh1/line/510050?callback=jQuery111208396578891098054_1563195335181&begin=0&end=-1&select=time%2Cprice%2Cvolume & _ =1563195335188"
     
-    url_list = [url_510300, url_510300_mar, url_510300_apr, url_510300_jun, url_510300_sep, url_510050, url_510050_mar, url_510050_apr, url_510050_jun, url_510050_sep]
+    url_list = [url_510300, url_510300_apr, url_510300_may, url_510300_jun, url_510300_sep, url_510050, url_510050_apr, url_510050_may, url_510050_jun, url_510050_sep]
 
     while True:
         now_shanghai = datetime.datetime.now(tz=pytz.timezone('Asia/Shanghai'))
