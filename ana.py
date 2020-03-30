@@ -41,6 +41,10 @@ class Ana(cmd.Cmd):
         name_c = f'{UDL}C{EXP}M{K1}'
         name_p = f'{UDL}P{EXP}M{K2}'
 
+        self.df = pd.read_csv(self.csv_file, index_col='time', parse_dates=['time'])
+        self.df = self.df[[UDL, name_c, name_p]]
+        self.df.dropna(axis='index', how='any', inplace=True)
+
         su = self.df[UDL].iloc[-1]
         
         sc = self.df[name_c].iloc[-1]
@@ -90,21 +94,9 @@ class Ana(cmd.Cmd):
 
     def do_run(self, arg):
         self.df = pd.read_csv(self.csv_file, index_col='time', parse_dates=['time'])
+        self.df = self.df[['510300', '510050']]
         self.df.dropna(axis='index', how='any', inplace=True)
-        if arg=='':
-            kl, kh = self.get_K(self.df['510300'].iloc[-1])
-            self.pair_ana('510300', kl, kl)
-            self.pair_ana('510300', kl, kh)
-            self.pair_ana('510300', kh, kl)
-            self.pair_ana('510300', kh, kh)
-
-            kl, kh = self.get_K(self.df['510050'].iloc[-1])
-            self.pair_ana('510050', kl, kl)
-            self.pair_ana('510050', kl, kh)
-            self.pair_ana('510050', kh, kl)
-            self.pair_ana('510050', kh, kh)
-
-        elif arg=='50':
+        if arg=='50':
             kl, kh = self.get_K(self.df['510050'].iloc[-1])
             self.pair_ana('510050', kl, kl)
             self.pair_ana('510050', kl, kh)
